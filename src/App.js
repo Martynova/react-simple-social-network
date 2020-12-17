@@ -12,9 +12,12 @@ const App = (props) => {
             <div className='app-wrapper'>
                 <Header/>
                 <Navbar/>
-                <div class='app-wrapper-content'>
+                <div className='app-wrapper-content'>
                     <Route path='/dialogs' component={Dialogs}/> {/*/dialogs/spam/blabla*/}
                     <Route path='/profile' component={Profile}/>
+                    <Route path='/news'/>
+                    <Route path='/music'/>
+                    <Route path='/settings'/>
                 </div>
             </div>
         </BrowserRouter>)

@@ -4,22 +4,25 @@ import Post from './Post/Post';
 
 const MyPosts = (props) => {
 
-    let postData = [
-        { id: 1, message: 'Hi, how are you?', likesCount: 12 },
-        { id: 2, message: 'It\'s my first post', likesCount: 11 }
-    ];
+    let {postsPage: p} = props.state;
+    let posts = p.posts.map(post => <Post key={post.id} message={post.message} likesCount={post.likesCount} />);
 
-    let posts = postData.map(post => <Post key={post.id} message={post.message} likesCount={post.likesCount} />);
+    let refText = React.createRef();
+
+    let textMessage = () => {
+        let textValue= refText.current.value;
+        props.setPost(textValue)
+    }
 
     return (
         <div className={s.postsBlock}>
             <h3>My posts</h3>
             <div>
                 <div>
-                    <textarea></textarea>
+                    <textarea ref={refText} ></textarea>
                 </div>
                 <div>
-                    <button>Add post</button>
+                    <button onClick={textMessage}>Add post</button>
                 </div>
             </div>
             <div className={s.posts}>

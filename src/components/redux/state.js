@@ -15,8 +15,23 @@ let state = {
         {id: 3, message: 'Yo'},
         {id: 4, message: 'Yo'},
         {id: 5, message: 'Yo'}
-    ]      
+    ]},
+    postsPage:{
+        posts:[
+        { id: 1, message: 'Hi, how are you?', likesCount: 12 },
+        { id: 2, message: 'It\'s my first post', likesCount: 11 }
+    ]}
 }
+
+export let setPost = (message) => {
+    let post = {
+        id: 3,
+        message,
+        likesCount:3
+    }
+    state.postsPage.posts.push(post);
+    debugger;
 }
+
 
 export default state;

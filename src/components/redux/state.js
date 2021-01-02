@@ -31,7 +31,11 @@ let store = {
     getState(){
         return this._state;
     },
-    setPost() {
+
+    subscribe(observer) {
+        this._callSubscribe = observer;
+    },
+    _setPost() {
         let post = {
             id: 3,
             message: this._state.profilePage.newPostText,
@@ -41,13 +45,17 @@ let store = {
         this._state.profilePage.newPostText = '';
         this._callSubscribe(this._state);
     },
-    updatePostMessage(post) {
+    _updatePostMessage(post) {
         this._state.profilePage.newPostText = post
         this._callSubscribe(this._state);
     },
+    dispatch(action) {
+        if(action.type === 'SET-POST') {
+            this._setPost();
+        } else if (action.type === 'UPDATE-POST-MESSAGE') {
+            this._updatePostMessage(action.text)
+        }
 
-    subscribe(observer) {
-        this._callSubscribe = observer;
     }
 }
 

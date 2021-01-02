@@ -6,7 +6,7 @@ import './index.css';
 import App from './App';
 
 
-let rerenderEntireTree = (state) => ReactDOM.render(<App state={state} setPost={store.setPost} updatePostMessage={store.updatePostMessage} />, document.getElementById('root'));
+let rerenderEntireTree = (state) => ReactDOM.render(<App state={state} dispatch={store.dispatch.bind(store)} />, document.getElementById('root'));
 
 rerenderEntireTree(store.getState());
 

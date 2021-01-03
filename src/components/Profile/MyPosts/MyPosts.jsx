@@ -1,14 +1,14 @@
 import React from 'react';
 import s from './MyPosts.module.css';
 import Post from './Post/Post';
-import {addPostCreator, changePostCreator} from '../../redux/state';
+import {addPostCreator, changePostCreator} from '../../redux/profileReducer';
 
 
 
 const MyPosts = (props) => {
-    
-    let {postsPage: p, profilePage} = props.state;
-    let posts = p.posts.map(post => <Post key={post.id} message={post.message} likesCount={post.likesCount} />);
+    let {profilePage} = props.state;
+
+    let posts = profilePage.posts.map(post => <Post key={post.id} message={post.message} likesCount={post.likesCount} />);
     let newPostElement = React.createRef();
 
     let addPost = () => {

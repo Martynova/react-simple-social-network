@@ -3,6 +3,8 @@ import s from './Dialogs.module.css';
 import DialogItem from './DialogItem/DialogItem';
 import Message from './Message/Message'; 
 
+import {sendMessageBodyCreator, updateMessageBodyCreator} from '../redux/state';
+
 
 
 const Dialogs = (props) => {
@@ -13,6 +15,15 @@ const Dialogs = (props) => {
     let dialog = d.dialogs.map(dialog => <DialogItem name={dialog.name} id={dialog.id}  key={dialog.id}/>)
 
     let message = m.messages.map(message => <Message key={message.id} message={message.message}/>)
+
+    let onSendMessageClick = () => {
+        props.dispatch(sendMessageBodyCreator());
+    }
+
+    let onNewMessageChange = (e) => {
+        const body = e.target.value;
+        props.dispatch(updateMessageBodyCreator(body))
+    }
     
     return (
         <div className={s.dialogs}>
@@ -22,6 +33,8 @@ const Dialogs = (props) => {
             <div className={s.messages}>
                 {message}
             </div>
+            <div><textarea placeholder='Send your message' value={m.newMessageBody}  onChange={onNewMessageChange}></textarea></div>
+            <div><button onClick={onSendMessageClick}>Send</button></div>
         </div>
     )
 }

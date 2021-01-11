@@ -4,9 +4,16 @@ import * as serviceWorker from './serviceWorker';
 import store from './components/redux/reduxStore';
 import './index.css';
 import App from './App';
+import { BrowserRouter } from 'react-router-dom';
 
 
-let rerenderEntireTree = (state) => ReactDOM.render(<App state={state} dispatch={store.dispatch.bind(store)} />, document.getElementById('root'));
+let rerenderEntireTree = () => 
+{
+    ReactDOM.render(    
+        <BrowserRouter>
+            <App store={store} dispatch={store.dispatch.bind(store)} />
+        </BrowserRouter>, document.getElementById('root'))
+};
 
 rerenderEntireTree(store.getState());
 

@@ -3,12 +3,7 @@ import s from './Dialogs.module.css';
 import DialogItem from './DialogItem/DialogItem';
 import Message from './Message/Message'; 
 
-import {sendMessageBodyCreator, updateMessageBodyCreator} from '../redux/dialogsReducer';
-
-
-
 const Dialogs = (props) => {
-    
     let {profilePage:d,messagesPage:m} = props.state;
 
     
@@ -17,12 +12,12 @@ const Dialogs = (props) => {
     let message = m.messages.map(message => <Message key={message.id} message={message.message}/>)
 
     let onSendMessageClick = () => {
-        props.dispatch(sendMessageBodyCreator());
+        props.sendMessage();
     }
 
     let onNewMessageChange = (e) => {
         const body = e.target.value;
-        props.dispatch(updateMessageBodyCreator(body))
+        props.updateMessageBody(body)
     }
     
     return (

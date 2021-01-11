@@ -9,8 +9,8 @@ import DialogsContainer from './components/Dialogs/DialogsContainer';
 
 
 const App = (props) => {
-    const dialogs = () => <DialogsContainer store={props.store}/>
-    const messages = () => <Profile store={props.store}/>
+    const dialogs = () => <DialogsContainer />
+    const messages = () => <Profile />
     return (
         <div className='app-wrapper'>
                 <Header/>

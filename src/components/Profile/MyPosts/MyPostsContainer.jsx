@@ -17,7 +17,7 @@ let mapDispatchToProps = (dispatch) => {
         addPost: () => {
             dispatch(addPostCreator());
         }
-     }
+    }
 }
 
 const MyPostsContainer = connect(mapStateToProps, mapDispatchToProps)(MyPosts)

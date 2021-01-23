@@ -1,5 +1,6 @@
 const SET_POST = 'SET_POST';
 const UPDATE_POST_MESSAGE = 'UPDATE_POST_MESSAGE';
+const SET_USERS_PROFILE = 'SET_USERS_PROFILE'
 
 let initialState = {
     dialogs: [
@@ -15,6 +16,7 @@ let initialState = {
         { id: 2, message: 'It\'s my first post', likesCount: 11 }
     ],
     newPostText: '',
+    profile: null
 }
 
 const profileReducer = (state = initialState, action) => {
@@ -34,6 +36,11 @@ const profileReducer = (state = initialState, action) => {
                 ...state,
                 newPostText: action.text
             }
+        case SET_USERS_PROFILE:
+            return {
+                ...state,
+                profile: action.profile
+            }
 
         default:
             return state;
@@ -45,3 +52,5 @@ export default profileReducer;
 export const addPostCreator = () => ({type:SET_POST});
 
 export const changePostCreator = (text) => ({type: UPDATE_POST_MESSAGE, text})
+
+export const setUsersProfile = (profile) => ({type: SET_USERS_PROFILE, profile})

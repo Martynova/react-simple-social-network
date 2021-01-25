@@ -1,9 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { follow, setCurrentPage, setIsFetching, setTotalUsersCount, setUsers, unfollow } from '../redux/usersReducer';
+import { follow, setCurrentPage, setIsFetching, setTotalUsersCount, setUsers, unfollow } from '../../redux/usersReducer';
 import Users from './Users';
-import * as axios from 'axios';
 import Preloader from '../Common/Preloader/Preloader'; 
+import {usersApi} from '../../api/api';
 
 class UsersContainer extends React.Component {
 
@@ -13,9 +13,10 @@ class UsersContainer extends React.Component {
 
     getUsers = () => {
         this.props.setIsFetching(true);
+
         if(this.props.users.length === 0) {
-                axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}`).then(res => {
-                    this.props.setUsers(res.data.items);
+            usersApi.getUsers(this.props.currentPage).then(res => {
+                    this.props.setUsers(res.items);
                     //this.props.setTotalUsersCount(res.data.totalCount);
                     this.props.setIsFetching(false);
                 })

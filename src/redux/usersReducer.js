@@ -1,3 +1,5 @@
+import {usersApi} from '../api/api';
+
 const FOLLOW = 'FOLLOW';
 const UNFOLLOW = 'UNFOLLOW';
 const SET_USERS ='SET_USERS';
@@ -86,3 +88,14 @@ export const setCurrentPage = (currentPage) => ({type: SET_CURRENT_PAGE, current
 export const setTotalUsersCount = (totalUsersCount) => ({type: SET_TOTAL_USERS_COUNT, totalUsersCount})
 
 export const setIsFetching = (isFetching) => ({type: SET_IS_FETCHING, isFetching})
+
+export const getUsers = (currentPage, pageSize) => {
+    return (dispatch) => {
+        dispatch(setIsFetching(true));
+        usersApi.getUsers(currentPage).then(res => {
+            dispatch(setUsers(res.items));
+            //this.props.setTotalUsersCount(res.data.totalCount);
+            dispatch(setIsFetching(false));
+        })
+    }
+}

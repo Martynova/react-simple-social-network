@@ -1,3 +1,5 @@
+import { profileApi } from "../api/api";
+
 const SET_POST = 'SET_POST';
 const UPDATE_POST_MESSAGE = 'UPDATE_POST_MESSAGE';
 const SET_USERS_PROFILE = 'SET_USERS_PROFILE'
@@ -54,3 +56,12 @@ export const addPostCreator = () => ({type:SET_POST});
 export const changePostCreator = (text) => ({type: UPDATE_POST_MESSAGE, text})
 
 export const setUsersProfile = (profile) => ({type: SET_USERS_PROFILE, profile})
+
+export const getUserProfile = (userId) => {
+    return (dispatch) => {
+        profileApi.getProfile(userId).then(res => {
+            dispatch(setUsersProfile(res.data))
+            //this.props.setIsFetching(false);
+        })
+    }
+}

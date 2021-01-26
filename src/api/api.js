@@ -13,6 +13,12 @@ let instance = axios.create({
 export const usersApi = {
     getUsers(currentPage) {
         return instance.get(`users?page=${currentPage}`).then(res => res.data)
+    },
+    follow(userId) {
+        return instance.post(`follow/${userId}`)
+    },
+    unfollow(userId){
+        return instance.delete(`follow/${userId}`)
     }
 }
 

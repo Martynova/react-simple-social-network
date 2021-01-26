@@ -1,9 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { follow, setCurrentPage, setIsFetching, setTotalUsersCount, setUsers, unfollow } from '../../redux/usersReducer';
+import { follow, setCurrentPage, unfollow, getUsers } from '../../redux/usersReducer';
 import Users from './Users';
 import Preloader from '../Common/Preloader/Preloader'; 
-import {usersApi} from '../../api/api';
+
 
 class UsersContainer extends React.Component {
 
@@ -12,14 +12,8 @@ class UsersContainer extends React.Component {
     }
 
     getUsers = () => {
-        this.props.setIsFetching(true);
-
-        if(this.props.users.length === 0) {
-            usersApi.getUsers(this.props.currentPage).then(res => {
-                    this.props.setUsers(res.items);
-                    //this.props.setTotalUsersCount(res.data.totalCount);
-                    this.props.setIsFetching(false);
-                })
+        if (this.props.users.length === 0) {
+            this.props.getUsers(this.props.currentPage);
         }
     }
 
@@ -55,8 +49,6 @@ let mapStateToProps = (state) => {
 export default connect(mapStateToProps, {
     follow,
     unfollow,
-    setUsers,
     setCurrentPage,
-    setTotalUsersCount,
-    setIsFetching
+    getUsers,
 })(UsersContainer);

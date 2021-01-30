@@ -6,6 +6,7 @@ import { Route } from "react-router-dom";
 import DialogsContainer from './components/Dialogs/DialogsContainer';
 import UsersContainer from './components/Users/UsersContainer';
 import HeaderContainer from './components/Header/HeaderContainer';
+import Login from './components/Login/Login.jsx'
 
 const App = (props) => {
     const dialogs = () => <DialogsContainer />
@@ -22,6 +23,7 @@ const App = (props) => {
                     <Route path='/music'/>
                     <Route path='/settings'/>
                     <Route path='/users' render={usersContainer}/>
+                    <Route path='/login' render={ () => <Login/>}/>
                 </div>
         </div>
     )

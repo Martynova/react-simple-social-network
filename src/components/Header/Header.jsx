@@ -2,9 +2,12 @@ import React from 'react';
 import s from './Header.module.css';
 
 const Header = (props) => {
+    const logout = () => {
+        props.logout();
+    }
     return (
         <header className={s.header}>
-        {props.isAuth ? props.login
+        {props.isAuth ? <button onClick={logout}>logout</button>
          : <img src='https://www.freelogodesign.org/Content/img/logo-ex-7.png' />}
         </header>
     )

@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { follow, setCurrentPage, unfollow, getUsers } from '../../redux/usersReducer';
+import {getUsersItems} from '../../redux/userSelectors.js'
 import Users from './Users';
 import Preloader from '../Common/Preloader/Preloader'; 
 
@@ -38,7 +39,7 @@ class UsersContainer extends React.Component {
 
 let mapStateToProps = (state) => {
     return {
-        users: state.usersPage.users,
+        users: getUsersItems(state),
         pageSize: state.usersPage.pageSize,
         totalUsersCount: state.usersPage.totalUsersCount,
         currentPage: state.usersPage.currentPage,

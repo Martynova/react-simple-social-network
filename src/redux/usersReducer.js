@@ -1,4 +1,5 @@
 import {usersApi} from '../api/api';
+import { updateObjectInArray } from '../utils/object-helpers';
 
 const FOLLOW = 'FOLLOW';
 const UNFOLLOW = 'UNFOLLOW';
@@ -14,7 +15,7 @@ let initialState = {
         // {id: 3, photos:{small: 'https://image.shutterstock.com/image-vector/earth-icon-trendy-logo-concept-260nw-1255581898.jpg'}, followed: true, fullName: 'Nik',status: 'I am boss', location: {city: 'Madrid', country: 'Spain'}},
     ],
     pageSize: 10,
-    totalUsersCount: 57,
+    totalItemsCount: 500,
     currentPage: 1,
     isFetching: true,
 }
@@ -24,28 +25,12 @@ const usersReducer = (state = initialState, action) => {
         case FOLLOW:
             return {
                 ...state,
-                users: [...state.users.map(user => {
-                    if(user.id === action.userId) {
-                        return {
-                            ...user,
-                            followed: true
-                        }
-                    }
-                    return user;
-                })],
+                users: updateObjectInArray(...state.users, action.userId, 'id', {followed: true})
             }
         case UNFOLLOW:
             return {
                 ...state,
-                users: [...state.users.map(user => {
-                    if(user.id === action.userId) {
-                        return {
-                            ...user,
-                            followed: false
-                        }
-                    }
-                    return user;
-                })],
+                users: updateObjectInArray(...state.users, action.userId, 'id', {followed: false})
             }
         case SET_USERS: {
             return {...state,
@@ -61,7 +46,7 @@ const usersReducer = (state = initialState, action) => {
         case SET_TOTAL_USERS_COUNT: {
             return {
                 ...state,
-                totalUsersCount: action.totalUsersCount
+                totalItemsCount: action.totalItemsCount
             }
         }
         case SET_IS_FETCHING: {
@@ -85,17 +70,18 @@ export const setUsers = (users) => ({type: SET_USERS, users})
 
 export const setCurrentPage = (currentPage) => ({type: SET_CURRENT_PAGE, currentPage})
 
-export const setTotalUsersCount = (totalUsersCount) => ({type: SET_TOTAL_USERS_COUNT, totalUsersCount})
+export const setTotalUsersCount = (totalItemsCount) => ({type: SET_TOTAL_USERS_COUNT, totalItemsCount})
 
 export const setIsFetching = (isFetching) => ({type: SET_IS_FETCHING, isFetching})
 
 export const getUsers = (currentPage, pageSize) => {
-    return (dispatch) => {
+    return async (dispatch) => {
         dispatch(setIsFetching(true));
-        usersApi.getUsers(currentPage).then(res => {
-            dispatch(setUsers(res.items));
-            //this.props.setTotalUsersCount(res.data.totalCount);
-            dispatch(setIsFetching(false));
-        })
+        let res = await usersApi.getUsers(currentPage);
+        
+        dispatch(setUsers(res.items));
+        //this.props.setTotalUsersCount(res.data.totalCount);
+        dispatch(setIsFetching(false));
+        
     }
 }
